@@ -10,13 +10,13 @@
   </div>
 </template>
 <script>
-  import ApiService from "@/services/ApiService";
-  import DomainReport from "@/components/DomainReport";
+  import ApiService from "../services/ApiService";
+  import DomainReport from "../components/DomainReport";
 
   export default {
     name: 'Report',
     components: {DomainReport},
-    data() {
+    data: function () {
       return {
         fields: [
           {
@@ -43,7 +43,7 @@
         data: {}
       }
     },
-    created() {
+    created: function () {
       this.getReportData(); // NEW - call getEventData() when the instance is created
     },
     methods: {
@@ -52,14 +52,15 @@
           (data => {
             this.$set(this, "data", data);
           }).bind(this)
-        );
+        ).catch(error => {
+          console.error("There was an error!", error);
+        });
       }
     }
   }
 </script>
 <style scoped lang="scss">
   h5 {
-    border: 1px dotted red;
     padding: 5px;
   }
 </style>
