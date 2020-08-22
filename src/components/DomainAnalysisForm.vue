@@ -51,7 +51,6 @@ export default {
       let domain;
       try {
         domain = (new URL(this.form.domain)).hostname;
-        // eslint-disable-next-line no-empty
       } catch (e) {
         let splitUrl = this.form.domain.split("/");
         domain = (splitUrl.length ? splitUrl[0] : this.form.domain);
