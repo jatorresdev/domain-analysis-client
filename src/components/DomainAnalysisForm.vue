@@ -30,53 +30,49 @@
 </template>
 
 <script>
-  import ApiService from "../services/ApiService";
-  import DomainInfoCard from "./DomainInfoCard";
+import ApiService from "../services/ApiService";
+import DomainInfoCard from "./DomainInfoCard";
 
-  export default {
-    name: "DomainAnalysisForm",
-    components: {DomainInfoCard},
-    data: function () {
-      return {
-        form: {
-          domain: '',
-        },
-        data: null,
-        domain: null,
-        processing: false,
-      }
-    },
-    methods: {
-      validateDomain() {
-        let domain;
-        try {
-          domain = (new URL(this.form.domain)).hostname;
-          // eslint-disable-next-line no-empty
-        } catch (e) {
-          let splitUrl = this.form.domain.split("/");
-          domain = (splitUrl.length ? splitUrl[0] : this.form.domain);
-        }
-
-        this.form.domain = domain.toLowerCase();
+export default {
+  name: "DomainAnalysisForm",
+  components: {DomainInfoCard},
+  data: function () {
+    return {
+      form: {
+        domain: '',
       },
-      async getDomainInfo() {
-        this.domain = this.form.domain;
-        this.data = null;
-        this.processing = true;
+      data: null,
+      domain: null,
+      processing: false,
+    }
+  },
+  methods: {
+    validateDomain() {
+      let domain;
+      try {
+        domain = (new URL(this.form.domain)).hostname;
+        // eslint-disable-next-line no-empty
+      } catch (e) {
+        let splitUrl = this.form.domain.split("/");
+        domain = (splitUrl.length ? splitUrl[0] : this.form.domain);
+      }
 
-        ApiService.getDomainInfo(this.form.domain).then(
+      this.form.domain = domain.toLowerCase();
+    },
+    async getDomainInfo() {
+      this.domain = this.form.domain;
+      this.data = null;
+      this.processing = true;
+
+      ApiService.getDomainInfo(this.form.domain).then(
           (data => {
             this.$set(this, "data", data);
             this.$set(this, "processing", false);
           }).bind(this)
-        ).catch(error => {
-          console.error("There was an error!", error);
-        });
-      }
+      ).catch(error => {
+        console.error("There was an error!", error);
+      });
     }
   }
+}
 </script>
-
-<style scoped>
-
-</style>

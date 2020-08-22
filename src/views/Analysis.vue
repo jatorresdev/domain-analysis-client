@@ -5,9 +5,9 @@
   </div>
 </template>
 <script>
-  import DomainAnalysisForm from "../components/DomainAnalysisForm";
+import DomainAnalysisForm from "../components/DomainAnalysisForm";
 
-  export default {
-    components: {DomainAnalysisForm}
-  }
+export default {
+  components: {DomainAnalysisForm}
+}
 </script>
