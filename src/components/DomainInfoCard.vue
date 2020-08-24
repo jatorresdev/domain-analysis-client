@@ -8,10 +8,11 @@
       <b-list-group-item>Grado previo: {{ previousSslGrade !== '' ? previousSslGrade : '-' }}</b-list-group-item>
       <b-list-group-item>Cambios en el servidor: {{ serversChanged ? 'Si' : 'No' }}</b-list-group-item>
       <b-list-group-item>Servidor caído: {{ isDown ? 'Si' : 'No' }}</b-list-group-item>
+      <b-list-group-item>Estado del análisis: {{ status == 'READY' ? 'Finalizado' : 'En proceso' }}</b-list-group-item>
     </b-list-group>
 
-    <h4 v-if="servers">Información de servidores</h4>
     <div v-if="servers">
+      <h4>Información de servidores</h4>
       <b-table striped hover :items="servers"></b-table>
     </div>
   </div>
@@ -28,6 +29,7 @@ export default {
     sslGrade: String,
     previousSslGrade: String,
     isDown: Boolean,
+    status: String,
     servers: Array,
   },
   computed: {

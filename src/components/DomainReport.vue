@@ -2,7 +2,7 @@
   <div>
     <b-table striped hover :items="items" :fields="fields">
       <template v-slot:cell(actions)="row">
-        <b-button v-if="row.item.info.servers" size="sm" @click="row.toggleDetails" variant="primary">
+        <b-button v-if="!row.item.info.is_down" size="sm" @click="row.toggleDetails" variant="primary">
           {{ row.detailsShowing ? 'Ocultar' : 'Mostrar' }} detalles
         </b-button>
       </template>
@@ -13,7 +13,8 @@
                           :images="row.item.info.logos"
                           :servers-changed="row.item.info.servers_changed"
                           :ssl-grade="row.item.info.ssl_grade" :previous-ssl-grade="row.item.info.previous_ssl_grade"
-                          :is-down="row.item.info.id_down" :servers="row.item.info.servers"/>
+                          :is-down="row.item.info.id_down" :servers="row.item.info.servers"
+                          :status="row.item.info.analysis_status"/>
 
           <b-button size="sm" @click="row.toggleDetails" variant="primary">Ocultar detalles</b-button>
         </div>

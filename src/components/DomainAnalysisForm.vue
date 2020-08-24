@@ -18,10 +18,12 @@
     </b-form>
 
     <b-card v-if="data" class="mt-3" header="Resultado del análisis">
-      <DomainInfoCard :domain="domain" :title="data.title" :images="data.logos"
+      <DomainInfoCard v-if="!data.is_down" :domain="domain" :title="data.title" :images="data.logos"
                       :servers-changed="data.servers_changed"
                       :ssl-grade="data.ssl_grade" :previous-ssl-grade="data.previous_ssl_grade"
-                      :is-down="data.id_down" :servers="data.servers"/>
+                      :is-down="data.id_down" :servers="data.servers" :status="data.analysis_status"/>
+      <h5 v-else>El dominio ingresado es inválido o actualmente es inaccesible. Por favor verifique e inténtelo de
+        nuevo.</h5>
     </b-card>
     <div v-else-if="!data && processing" class="mt-3">
       <b-spinner variant="primary" style="width: 3rem; height: 3rem;" label="Loading..."></b-spinner>
@@ -56,7 +58,7 @@ export default {
         domain = (splitUrl.length ? splitUrl[0] : this.form.domain);
       }
 
-      this.form.domain = domain.toLowerCase();
+      this.form.domain = domain.toLowerCase().trim();
     },
     async getDomainInfo() {
       this.domain = this.form.domain;
